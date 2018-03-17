@@ -7,7 +7,7 @@ function [ output ] = squareModuloExponentiation( base, exponent, modulus )
 %            {  1                   if b = 0
 
 
-    if exponent == 1
+    if exponent == modulus
         output = 0;
         return
     end

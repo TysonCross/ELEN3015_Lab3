@@ -1,7 +1,9 @@
-function [ primality ] = isProbablyPrime( n, k )
-% isProbablyPrime test an input number for primality using the Rabin-Miller test
-
-    % confidence of testing
+function [ primality ] = RabinMiller( n , k )
+% RabinMiller tests an input number for primality using the Rabin-Miller test
+% returns false if the test returns composite, and true if likely prime
+ 
+    % confidence of testing (number of bases)
+    % with k =7, error threshold is around 
     if nargin < 2
         k = 7;
     end
@@ -16,13 +18,13 @@ function [ primality ] = isProbablyPrime( n, k )
         case 1
             primality = false; return
         case 2
-            primality = true; return
+            primality = true;  return
         case 3
-            primality = true; return
+            primality = true;  return
         case 4
             primality = false; return
         case 5
-            primality = true; return
+            primality = true;  return
     end
     
     % check if n is even
@@ -55,7 +57,7 @@ function [ primality ] = isProbablyPrime( n, k )
             primality = false; return
         elseif (randomNumPower==1) || (randomNumPower==n-1)
             % Stop the loop, leave result as true (might be a strong liar)
-            % Don't start the j loop, but continue with the while loop
+            % Don't start the j loop, but continue with the other witnesses (in for loop)
         else
             % Can't make prediction for this witness yet. Start squaring randomNumPower mod n
             for j=1:numBinaryDivisions-1
@@ -79,22 +81,3 @@ function [ primality ] = isProbablyPrime( n, k )
         end
     end
 end
-
-% Input #1: n > 3, an odd integer to be tested for primality;
-% Input #2: k, a parameter that determines the accuracy of the test
-% Output: composite if n is composite, otherwise probably prime
-
-% write n ? 1 as (2^r)·d with d odd by factoring powers of 2 from n ? 1
-% WitnessLoop: repeat k times:
-%    pick a random integer a in the range [2, n ? 2]
-%    x ? a^d mod n
-%    if x = 1 or x = n ? 1 then
-%       continue WitnessLoop
-%    repeat r ? 1 times:
-%       x ? x^2 mod n
-%       if x = 1 then
-%          return composite
-%       if x = n ? 1 then
-%          continue WitnessLoop
-%    return composite
-% return probably prime
