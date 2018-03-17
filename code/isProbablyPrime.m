@@ -1,4 +1,4 @@
-function [ result ] = isProbablyPrime( n, k )
+function [ primality ] = isProbablyPrime( n, k )
 % isProbablyPrime test an input number for primality using the Rabin-Miller test
 
     % confidence of testing
@@ -12,53 +12,72 @@ function [ result ] = isProbablyPrime( n, k )
     % shortcuts for n < 6
     switch n
         case 0
-            result = false; return
+            primality = false; return
         case 1
-            result = false; return
+            primality = false; return
         case 2
-            result = true; return
+            primality = true; return
         case 3
-            result = true; return
+            primality = true; return
         case 4
-            result = false; return
+            primality = false; return
         case 5
-            result = true; return
+            primality = true; return
     end
     
     % check if n is even
     if bitand(n,1)==0
-        result = false; return
+        primality = false; return
+    end
+    
+    % check if n is multiple of 3 or 5
+    if mod(n,3)==0
+        primality = false; return
+    elseif mod(n,5)==0
+        primality = false; return
     end
     
     % split into the form (2^r)·d , with d odd
-    numBinaryDivisions = 0;
-    oddPartNum = n-1;
+    numBinaryDivisions = 1;
+    oddPartNum = (n-1)/2;
     while bitand(oddPartNum,1)==0
-        oddPartNum = floor(oddPartNum/2);
+        oddPartNum = oddPartNum/2;
         numBinaryDivisions = numBinaryDivisions + 1;
     end
-
-%     for 
-    for i=1:k          % "Witness" loop
-        a = randi([2, n-1]);
-        x = squareModuloExponentiation(a,oddPartNum,n);
-        if (x~=1) && (x~=n-1)
-            j=0;
-            while j<numBinaryDivisions
-               x = squareModuloExponentiation(x,2,n);
-               if x==1
-                   result =  false; return
-               elseif x==(n-1)
+    
+	% "Witness" loop
+    primality = true;
+    rng('shuffle');
+    for i=1:k
+        randomNum = randi([2, n-1]);
+        randomNumPower = squareModuloExponentiation(randomNum,oddPartNum,n);
+        if (numBinaryDivisions==1) && (randomNumPower~=1) && (randomNumPower~=n-1)
+            primality = false; return
+        elseif (randomNumPower==1) || (randomNumPower==n-1)
+            % Stop the loop, leave result as true (might be a strong liar)
+            % Don't start the j loop, but continue with the while loop
+        else
+            % Can't make prediction for this witness yet. Start squaring randomNumPower mod n
+            for j=1:numBinaryDivisions-1
+               randomNumPower = squareModuloExponentiation(randomNumPower,2,n);
+               if randomNumPower==1
+                   % Definitely not a prime
+                   primality =  false; return
+               elseif randomNumPower==(n-1)
+                   % Probably a prime, but might be a strong liar
+                   % We need to check remaining witnesses
                    break
                end
-               j=j+1;
-            end
-            if j==numBinaryDivisions
-               result =  false; return
+               
+               if j == (numBinaryDivisions-1)
+                   % if we left the j loop without breaking
+                   % then current randomNum is a witness
+                   % for n as a composite (non-prime)
+                   primality=false; return
+               end
             end
         end
     end
-    result = true;
 end
 
 % Input #1: n > 3, an odd integer to be tested for primality;
