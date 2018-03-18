@@ -1,4 +1,4 @@
-function [ gcd ] = GCD( a, b )
+function [ gcd, x, y] = GCD( a, b )
 % GCD() returns the greatest common divisor between two numbers
 % It implements Euclid's extended algorithm
 
@@ -14,19 +14,6 @@ function [ gcd ] = GCD( a, b )
            U=M;
     end
     gcd = b;
+    x = M(1);
+    y = M(2);
 end
-
-% % mod(a,b):
-%   x=0
-%   y=1
-%   while a~=0:
-%     q=floor(b/a)
-%     x=y
-%     y=x-q*y
-%     b=a
-%     a=b-q*a
-%   if b>1:
-%     return None
-%   while x<0:
-%     x+=b
-%   return(x)
