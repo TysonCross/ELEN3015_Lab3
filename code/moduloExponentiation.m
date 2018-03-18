@@ -25,11 +25,11 @@ function [ output ] = moduloExponentiation( base, exponent, modulus )
     while (exponent > 0)
         if mod(exponent,2) == 1                                 % b is odd
             assert((base < largest_int) && (output < largest_int), 'Overflow');
-            output = mod(output*base,modulus);                  % <= potential overflow?
+            output = mod(output*base,modulus);
         end
         assert(base < largest_int , 'Overflow');
-        base = mod(base*base,modulus);                         % <= potential overflow?
-        exponent = floor(exponent/2);
+        base = mod(base*base,modulus);
+        exponent = floor(exponent/2);       % <- very slightly faster than bitshift()
     end
     
     output = mod(output,modulus);

@@ -20,16 +20,11 @@ mod_time_sq = 0;
     mod_time = toc;
     mod_time_sq = mod_time_sq + mod_time;
 
-%     tic;
-%     y = naiveModuloExponentiation(a,b,c)
-%     mod_time = toc;
-%     mod_time_naive = mod_time_sq + mod_time;
-
     mod_time = 0;
 
     end
 
-disp(['binaryModuloExponentiation (using binary exponentiation) calculated in average of ', num2str((mod_time_bin/max_it)*1000), ' milliseconds'])
-disp(['squareModuloExponentiation (using square exponentiation) calculated in average of ', num2str((mod_time_sq/max_it)*1000), ' milliseconds'])
-
-% disp(['naiveModuloExponentiation calculated in ', num2str((mod_time_naive/max_it)/max_it*1000), ' milliseconds'])
+disp(['binaryModuloExponentiation (using binary exponentiation) calculated in average of ',...
+    num2str((mod_time_bin/max_it)*1000), ' milliseconds'])
+disp(['squareModuloExponentiation (using square exponentiation) calculated in average of ',...
+    num2str((mod_time_sq/max_it)*1000), ' milliseconds'])

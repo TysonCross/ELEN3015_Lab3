@@ -1,6 +1,6 @@
 function [ prime ] = generatePrime( bitsize , coprime )
-% generatePrime generates an odd number likely to be prime, and the tests
-% its primality using the Rabin-Miller test
+% generatePrime generates an odd number likely to be prime
+% and then tests this number's primality using the Rabin-Miller test
 
     if nargin < 2
         coprime = 1;
@@ -42,10 +42,3 @@ function [ prime ] = generatePrime( bitsize , coprime )
     assert(isprime(prime)==true,'RabinMiller false positive')
     assert(length(dec2bin(prime))<=bitsize,'Incorrect bitsize')
 end
-
-%% debug
-% disp(['(',num2str(length(primes)),...
-%     ' primes found between ',...
-%     num2str(primes(1)), ' and ',...
-%     num2str(r), ' in ',...
-%     num2str(primetime), ' seconds)'])

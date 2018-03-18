@@ -5,7 +5,6 @@ function [ primes ] = sievePrimes( limit, start )
     if nargin < 2
         start = 1;
     end
-%     progressbar; 
 
     number_range = start:limit;
     assert(length(number_range)>2, 'Number range length is not greater than 2')
@@ -13,9 +12,7 @@ function [ primes ] = sievePrimes( limit, start )
     while n^2 < limit
         number_range(n^2:n:limit) = 0;
         n = find(number_range>n, 1);
-%         progressbar(n^2/limit); 
     end
     primes = number_range(number_range>1);
-%     progressbar(1);
 end
 
