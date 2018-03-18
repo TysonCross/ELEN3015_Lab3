@@ -12,5 +12,13 @@ s = generatePrime(keylength); % value must be coprime with totient (default=6553
 if gcd(s,totient)~=1
     warning('The key and totient are not co-prime')
 end
-h = 
+% h = 
 %private_key <- inverse of totient
+
+
+disp(['p is ', num2str(dec2hex(p))])
+disp(['q is ', num2str(dec2hex(q))])
+disp(['n is ', num2str(dec2hex(n))])
+disp(['Phi(n) is ', num2str(dec2hex((totient)))])
+disp(['public key s is ', num2str(dec2hex(s))])
+% disp(['private key h is ', num2str(dec2hex(h))])

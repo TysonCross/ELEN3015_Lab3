@@ -7,24 +7,26 @@ function [ gcd ] = GCD( a, b )
     
     while a~=0
            quotient = floor(b/a);
-           r=mod(b,a);
+           remainder = mod(b,a);
            M = X-quotient*U;
            b=a;
-           a=r;
+           a=remainder;
            U=M;
     end
     gcd = b;
 end
 
-% def modinv(a,n):
-%   t,nt=0,1
-%   r,nr=n,a
-%   while nr!=0:
-%     q=r//nr
-%     t,nt=nt,t-q*nt
-%     r,nr=nr,r-q*nr
-%   if r>1:
+% % mod(a,b):
+%   x=0
+%   y=1
+%   while a~=0:
+%     q=floor(b/a)
+%     x=y
+%     y=x-q*y
+%     b=a
+%     a=b-q*a
+%   if b>1:
 %     return None
-%   while t<0:
-%     t+=n
-%   return(t)
+%   while x<0:
+%     x+=b
+%   return(x)
