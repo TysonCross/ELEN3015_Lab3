@@ -51,7 +51,7 @@ function [ primality, numBinaryDivisions, oddPartNum ] = RabinMiller( n , k )
     rng('shuffle');
     for i=1:k
         randomNum = randi([2, n-1]);
-        randomNumPower = squareModuloExponentiation(randomNum,oddPartNum,n);
+        randomNumPower = moduloExponentiation(randomNum,oddPartNum,n);
         if (numBinaryDivisions==1) && (randomNumPower~=1) && (randomNumPower~=n-1)
             primality = false; return
         elseif (randomNumPower==1) || (randomNumPower==n-1)
@@ -60,7 +60,7 @@ function [ primality, numBinaryDivisions, oddPartNum ] = RabinMiller( n , k )
         else
             % Cannot make prediction for this witness yet. Start squaring randomNumPower mod n
             for j=1:numBinaryDivisions-1
-               randomNumPower = squareModuloExponentiation(randomNumPower,2,n);
+               randomNumPower = moduloExponentiation(randomNumPower,2,n);
                if randomNumPower==1
                    % Definitely not a prime
                    primality =  false; return

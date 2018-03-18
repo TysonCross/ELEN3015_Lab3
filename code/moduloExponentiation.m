@@ -1,4 +1,4 @@
-function [ output ] = squareModuloExponentiation( base, exponent, modulus )
+function [ output ] = moduloExponentiation( base, exponent, modulus )
 %  moduloExponentiation calculates (a^b)%c
 %  This algorithm uses the following logic to reduce computational time to O(log2(b))
 %
@@ -23,12 +23,12 @@ function [ output ] = squareModuloExponentiation( base, exponent, modulus )
     base    	= mod(base,modulus);
 
     while (exponent > 0)
-        if mod(exponent,2) == 1                        % b is odd
+        if mod(exponent,2) == 1                                 % b is odd
             assert((base < largest_int) && (output < largest_int), 'Overflow');
-            output = mod(output*base,modulus);           % <= potential overflow?
+            output = mod(output*base,modulus);                  % <= potential overflow?
         end
         assert(base < largest_int , 'Overflow');
-        base = mod(base*base,modulus);                         % square a <= potential overflow?
+        base = mod(base*base,modulus);                         % <= potential overflow?
         exponent = floor(exponent/2);
     end
     

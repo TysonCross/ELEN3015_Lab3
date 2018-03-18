@@ -9,7 +9,7 @@ function [ gcd, sa, ta] = GCD( a, b )
     ta = 0;
     tb = 1;
    
-    while b~=0
+    while b~=0;
         q=floor(a/b);
         r=a-q*b;
         a=b;
@@ -19,7 +19,7 @@ function [ gcd, sa, ta] = GCD( a, b )
         sb=sc;
         tc=ta-q*tb;
         ta=tb;
-        tb-tc;
+        tb=tc;
     end
        
     gcd = a;

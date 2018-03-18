@@ -16,7 +16,7 @@ q = generatePrime(qlength);
         stop = true;
     end
 end
-    assert(gcd(p,q)==1,'P and Q are not co-prime')
+%     assert(gcd(p,q)==1,'P and Q are not co-prime')
 
 % Euler totient
 n = q*p;
@@ -25,17 +25,18 @@ totient = (p-1)*(q-1);
 % keys
 stop = false;
 while ~stop
-%     s = 65537;              % value must be coprime with totient (default=65537)
-    s = generatePrime(keylength, totient);
+    s = generatePrime(keylength, totient); % value must be coprime with totient (default=65537)
         assert(gcd(s,totient)==1, 'Public key s and the totient are not coprime');
     
     h = inverseMod(double(totient),double(s)); 
+    
     if (gcd(h,totient)==1) && (s*h==mod((s*h),totient))
         stop = true;
     end
 end
-    assert(gcd(h,totient)==1, 'Private key h and the totient are not coprime');
-    assert(s*h==mod((s*h),totient),'s*h not equal to s*h mod totient');
+%     assert(gcd(h,totient)==1, 'Private key h and the totient are not coprime');
+%     assert(s*h==mod((s*h),totient),'s*h not equal to s*h mod totient');
+
 % output
 disp(['p is ', num2str(dec2hex(p)), ' (', num2str(length(dec2bin(p))), '-bit)'])
 disp(['q is ', num2str(dec2hex(q)), ' (', num2str(length(dec2bin(q))), '-bit)'])
