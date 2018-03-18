@@ -3,7 +3,6 @@ function [ primality, numBinaryDivisions, oddPartNum ] = RabinMiller( n , k )
 % returns false if the test returns composite, and true if likely prime
  
     % confidence of testing (number of bases)
-    % with k =7, error threshold is around 
     if nargin < 2
         k = 7;
     end

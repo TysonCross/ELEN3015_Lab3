@@ -1,37 +1,44 @@
-function [ prime ] = generatePrime( bitsize, coprime )
+function [ prime ] = generatePrime( bitsize , coprime )
 % generatePrime generates an odd number liklely to be prime, and the tests
 % its primality using the Rabin-Miller test
-if nargin < 2
-    coprime = 1;
-end
-start = bitsize-1;
-range = [2^start,2^bitsize-1];
-r = randi(range);
-% precomputed table of primes
-prime_table = [2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71];
 
-if r>prime_table(end)
-    % Sieving for extra primes
-    % syntax is: sievePrimes(end,<start>)
-    prime_table = sievePrimes( r, 2^start );
-end
-
-i=length(prime_table);
-% stop = false;
-while (i>1) %&& (~stop)
-    if RabinMiller(prime_table(i)) %&& isCoPrime(coprime)
-        prime = prime_table(i);
-        assert(isprime(prime)==true,'RabinMiller not working')
-        assert(length(dec2bin(prime))==bitsize,'Incorrect bitsize')
-        return
-%         stop = true;
+    if nargin < 2
+        coprime = 1;
     end
-    i=i-1;
+
+    start = bitsize-1;
+    range = [2^start,(2^bitsize)-3];
+    r = randi(range)+2;
+
+    % precomputed table of primes
+    prime_table = [2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71];
+    found_prime=false;
+    while ~found_prime
+        if r>prime_table(end)
+            % Sieving for extra primes
+            % syntax is: sievePrimes(end,<start>)
+            prime_table = sievePrimes( r, 2^start );
+        end
+
+        i=length(prime_table);
+        stop = false;
+        while (i>1) && (~stop)
+            if RabinMiller(prime_table(i),100) && (GCD(prime_table(i),coprime)==1)
+                prime = prime_table(i);
+                found_prime = true;
+                stop = true;
+            end
+            i=i-1;
+        end
+        if ~found_prime
+            r = randi(range)+2;
+        end
+    end
+    assert(isprime(prime)==true,'RabinMiller false positive')
+    assert(length(dec2bin(prime))==bitsize,'Incorrect bitsize')
 end
 
-
-
-%% output
+%% debug
 % disp(['(',num2str(length(primes)),...
 %     ' primes found between ',...
 %     num2str(primes(1)), ' and ',...

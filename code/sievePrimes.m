@@ -8,6 +8,7 @@ function [ primes ] = sievePrimes( limit, start )
 %     progressbar; 
 
     number_range = start:limit;
+    assert(length(number_range)>2, 'Number range length is not greater than 2')
     n = number_range(2);
     while n^2 < limit
         number_range(n^2:n:limit) = 0;
