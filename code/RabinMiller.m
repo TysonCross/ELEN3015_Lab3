@@ -1,4 +1,4 @@
-function [ primality ] = RabinMiller( n , k )
+function [ primality, numBinaryDivisions, oddPartNum ] = RabinMiller( n , k )
 % RabinMiller tests an input number for primality using the Rabin-Miller test
 % returns false if the test returns composite, and true if likely prime
  
@@ -57,9 +57,9 @@ function [ primality ] = RabinMiller( n , k )
             primality = false; return
         elseif (randomNumPower==1) || (randomNumPower==n-1)
             % Stop the loop, leave result as true (might be a strong liar)
-            % Don't start the j loop, but continue with the other witnesses (in for loop)
+            % Don't start j loop, continue with other witnesses (in outer for loop)
         else
-            % Can't make prediction for this witness yet. Start squaring randomNumPower mod n
+            % Cannot make prediction for this witness yet. Start squaring randomNumPower mod n
             for j=1:numBinaryDivisions-1
                randomNumPower = squareModuloExponentiation(randomNumPower,2,n);
                if randomNumPower==1
@@ -74,7 +74,7 @@ function [ primality ] = RabinMiller( n , k )
                if j == (numBinaryDivisions-1)
                    % if we left the j loop without breaking
                    % then current randomNum is a witness
-                   % for n as a composite (non-prime)
+                   % to n as a composite (non-prime)
                    primality=false; return
                end
             end

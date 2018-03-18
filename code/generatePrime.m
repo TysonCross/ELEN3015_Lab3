@@ -1,43 +1,39 @@
-function [ prime ] = generatePrime(  bit_length, target )
+function [ prime ] = generatePrime( bitsize, coprime )
 % generatePrime generates an odd number liklely to be prime, and the tests
 % its primality using the Rabin-Miller test
+if nargin < 2
+    coprime = 1;
+end
+start = bitsize-1;
+range = [2^start,2^bitsize-1];
+r = randi(range);
+% precomputed table of primes
+prime_table = [2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71];
 
-    disp('Generating prime...')
-
-    k = bit_length;
-    p = target;
-    for t = 1:ceil(abs(log2(p)/2))
-        for M=3:floor(2*sqrt(k-1)-1)
-            sum1 = 0;
-            sum2 = 0;
-            for m=3:M
-                sum1 = sum1 + (2^m-(m-1)*t);
-                for j=2:m
-                    sum2 = sum2 + 1/(2^(j+(k-1)/j));
-                end
-            end
-            a = 2.0074*log(2)*k*2^(-k);
-            b = 2^(k-2-(M*t)) + ((8*(pi^2 -6))/3)*2^(k-2)*sum1*sum2;
-            probability = a*b;
-            if probability <= target
-                prime = t;return
-            end
-        end
-    end
-%     n = abs(makeInt(n));
-%     if n < 2^31
-%         possible_prime =  n^2 + n + 41;         % Euler prime
-%     else
-%         possible_prime = n;
-%     end
-% 
-%     while ~isProbablyPrime(possible_prime)
-%         if isProbablyPrime(possible_prime)
-%             prime = possible_prime; return
-%         end
-%         possible_prime = possible_prime + 2;
-%     end
-%     
-%     prime = possible_prime;
+if r>prime_table(end)
+    % Sieving for extra primes
+    % syntax is: sievePrimes(end,<start>)
+    prime_table = sievePrimes( r, 2^start );
 end
 
+i=length(prime_table);
+% stop = false;
+while (i>1) %&& (~stop)
+    if RabinMiller(prime_table(i)) %&& isCoPrime(coprime)
+        prime = prime_table(i);
+        assert(isprime(prime)==true,'RabinMiller not working')
+        assert(length(dec2bin(prime))==bitsize,'Incorrect bitsize')
+        return
+%         stop = true;
+    end
+    i=i-1;
+end
+
+
+
+%% output
+% disp(['(',num2str(length(primes)),...
+%     ' primes found between ',...
+%     num2str(primes(1)), ' and ',...
+%     num2str(r), ' in ',...
+%     num2str(primetime), ' seconds)'])
