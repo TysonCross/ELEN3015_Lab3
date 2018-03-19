@@ -4,13 +4,6 @@
 clc
 clear all
 
-% p = 1040531, hex = FE093  [20-bit]
-% q = 951649, hex = E8561 [20-bit]
-% n = 990220285619, hex = E68DBA76B3
-% The totient Phi(n) = 990218293440 (E68D9C10C0)
-% public key s = 2404859, hex = 24B1FB [22-bit]
-% private key h = 2896300979, hex = ACA20BB3 [32-bit]
-
 % values generated in previous exercise
 % p = 157, hex = 9D  [8-bit]
 % q = 211, hex = D3 [8-bit]
@@ -25,8 +18,9 @@ n = p*q;
 totient = 32760;
 s = 2179;
 h = 8299;
-bitsize = 15;
 
+% generate 1000 random numbers to encrypt
+bitsize = 15;
 range = [2^(bitsize-1),2^bitsize-1];
 numbers = [];
 for i=1:1000
@@ -41,7 +35,6 @@ for i=1:length(numbers)
 end
 time_encrypt = toc;
 
-
 % decrypt numbers
 tic;
 m = [];
@@ -50,18 +43,16 @@ for i=1:length(c)
 end
 time_decrypt = toc;
 
-str = {'Original';'Cipher';'Decrypt'};
-fprintf('% -10s -> % -10s -> % -10s\n', str{:});
-fprintf('-------------------------------------\n')
-for i=1:(min(length(c),length(m)))
-fprintf('% -10d -> % -10d -> % -10d\n', numbers(i), c(i), m(i))
-end
-disp(' ')
-
-    disp(['The ', num2str(length(c)) , ' messages were encrypted in ', num2str(time_encrypt*1000), ' milliseconds'])
-
-if isequal(numbers,m)
-    disp(['The ', num2str(length(m)) , ' messages were successfully decrypted in ', num2str(time_decrypt*1000), ' milliseconds'])
+if ~isequal(numbers,m)
+        disp('Decryption failed!')
 else
-    disp('Decryption failed!')
+    str = {'Original';'Cipher';'Decrypt'};
+    fprintf('% -10s -> % -10s -> % -10s\n', str{:});
+    fprintf('-------------------------------------\n')
+    for i=1:(min(length(c),length(m)))
+    fprintf('% -10d -> % -10d -> % -10d\n', numbers(i), c(i), m(i))
+    end
+    disp(' ')
+    disp(['The ', num2str(length(c)) , ' messages were encrypted in ', num2str(time_encrypt*1000), ' milliseconds'])
+    disp(['The ', num2str(length(m)) , ' messages were successfully decrypted in ', num2str(time_decrypt*1000), ' milliseconds'])
 end

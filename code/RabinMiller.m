@@ -5,13 +5,10 @@ function [ primality, numBinaryDivisions, oddPartNum ] = RabinMiller( n , k )
 % ELEN3015 Lab3
 % Tyson Cross 1239448
 
- 
-    % confidence of testing (number of bases)
     if nargin < 2
-        k = 7;
+        k = 7;     % confidence of testing (number of witnesses/bases)
     end
 
-    % make sure n is an positive integer
     n = abs(makeInt(n));
 
     % shortcuts for n < 6
@@ -54,7 +51,7 @@ function [ primality, numBinaryDivisions, oddPartNum ] = RabinMiller( n , k )
     primality = true;
     rng('shuffle');
     for i=1:k
-        randomNum = randi([2, n-1]);
+        randomNum = randi([2, n-1]);            % alternatively, we could use the first k primes
         randomNumPower = moduloExponentiation(randomNum,oddPartNum,n);
         if (numBinaryDivisions==1) && (randomNumPower~=1) && (randomNumPower~=n-1)
             primality = false; return
@@ -69,8 +66,7 @@ function [ primality, numBinaryDivisions, oddPartNum ] = RabinMiller( n , k )
                    % Definitely not a prime
                    primality =  false; return
                elseif randomNumPower==(n-1)
-                   % Probably a prime, but might be a strong liar
-                   % We need to check remaining witnesses
+                   % Probably prime, but might be strong liar: need to check rest of witnesses
                    break
                end
                

@@ -1,0 +1,29 @@
+ELEN3015 Data and Information Management
+Tyson Cross 1239448
+
+Lab 3
+-----
+
+This lab is a basic implementation of RSA in MATLAB
+
+Files:
+------
+exercise1.m 	: Lab 3, Exercise 1 (generates random primes p and q, the keys)
+exercise2.m 	: Lab 3, Exercise 2 (encrypts and decrypts 1000 numbers)
+
+moduloExponentiation.m 	: performs square and multiply modulo exponentiation
+GCD.m 			: function to calculate the greatest common divisor between two numbers
+inverseMod.m 	: calculates and returns the inverse modulo
+RabinMiller.m 	: function to test primality on a given input number
+generatePrime.m : generates a random prime number, of the bitsize specified, using Rabin-Miller test
+
+makeInt.m 		: wrapper to ensure an integer value
+bitlength.m 	: returns the number of bits in the size of input integer
+sievePrimes.m 	: sieves prime numbers from a range of integers
+
+Various tests:
+--------------
+test_RabinMiller.m
+test_moduloExponentiation.m
+test_sieving.m
+text_encryption_test.m

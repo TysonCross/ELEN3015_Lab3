@@ -19,21 +19,22 @@ function [ output ] = moduloExponentiation( base, exponent, modulus )
     exponent    = makeInt(exponent);
     modulus     = makeInt(modulus);
     
-    largest_int = intmax('uint32');
+    largest_int = realmax;
 
     output      = 1;
     base    	= mod(base,modulus);                    % <= overflow
 
     while (exponent > 0)
         if mod(exponent,2) == 1                       	% b is odd
-            assert((base < largest_int) && (output < largest_int), 'Overflow');
             output = mod(output*base,modulus);
+            assert((base < largest_int) && (output < largest_int) && ~isinf(output), 'Overflow');
         end
-        assert(base < largest_int , 'Overflow');
         base = mod(base*base,modulus);
+        assert(base < largest_int && ~isinf(base), 'Overflow');
+%         exponent = bitshift(exponent,-1);
         exponent = floor(exponent/2);                   % floor() slightly faster than bitshift()
     end
     
-    output = mod(output,modulus);
+    output = double(mod(output,modulus));
 end
 

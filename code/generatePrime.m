@@ -19,7 +19,7 @@ function [ prime ] = generatePrime( bitsize , coprime )
 
     found_prime=false;
     while ~found_prime
-            if RabinMiller(r) && (GCD(r,coprime)==1)
+            if RabinMiller(r) && (GCD(r,coprime)==1) && bitlength(r)==bitsize
                 prime = r;
                 found_prime = true;
                 stop = true;

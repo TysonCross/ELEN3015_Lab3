@@ -5,9 +5,9 @@ clc
 clear all
 
 % keylengths
-keylength = 22;                     % should be larger than (p-1), and (q-1)
-plength = 20;                       % p and q should be of similar length
-qlength = 20;
+keylength = 24;                     % should be larger than (p-1), and (q-1)
+plength = 16;                       % p and q should be of similar length
+qlength = 16;
 
 % primes
 tic;
@@ -42,22 +42,22 @@ primetime = toc;
 
 %% output
 clc
-disp(['p = ', num2str(p), ', hex = ', num2str(dec2hex(p)),...
+disp(['p = ', num2str(p), ';         % hex = ', num2str(dec2hex(p)),...
     '  [', num2str(length(dec2bin(p))), '-bit]'])
 
-disp(['q = ', num2str(q), ', hex = ',  num2str(dec2hex(q)),...
+disp(['q = ', num2str(q), ';         % hex = ',  num2str(dec2hex(q)),...
     ' [', num2str(length(dec2bin(q))), '-bit]'])
 
-disp(['n = ', num2str(n), ', hex = ', num2str(dec2hex(n))])
+disp(['n = ', num2str(n), ';         % hex = ', num2str(dec2hex(n))])
 
-disp(['The totient Phi(n) = ', num2str(totient), ' (',...
-    num2str(dec2hex((totient))), ')'])
+disp(['totient = ', num2str(totient), ';         % hex = ',...
+    num2str(dec2hex((totient)))])
 
-disp(['public key s = ', num2str(s), ', hex = ', num2str(dec2hex(s)),...
+disp(['s = ', num2str(s), ';         % hex = ', num2str(dec2hex(s)),...
     ' [', num2str(length(dec2bin(s))), '-bit]'])
 
-disp(['private key h = ', num2str(h), ', hex = ', num2str(dec2hex(h)),...
+disp(['h = ', num2str(h), ';         % hex = ', num2str(dec2hex(h)),...
     ' [', num2str(length(dec2bin(h))), '-bit]'])
 disp(' ')
 disp(['(Calculations completed in ',...
-    num2str(round(primetime)), ' second(s))'])
+    num2str(primetime), ' second(s))'])
