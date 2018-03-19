@@ -1,7 +1,15 @@
 % ELEN3015 Lab3 Exercise 2
+% Tyson Cross 1239448
 
 clc
 clear all
+
+% p = 1040531, hex = FE093  [20-bit]
+% q = 951649, hex = E8561 [20-bit]
+% n = 990220285619, hex = E68DBA76B3
+% The totient Phi(n) = 990218293440 (E68D9C10C0)
+% public key s = 2404859, hex = 24B1FB [22-bit]
+% private key h = 2896300979, hex = ACA20BB3 [32-bit]
 
 % values generated in previous exercise
 % p = 157, hex = 9D  [8-bit]
@@ -17,7 +25,7 @@ n = p*q;
 totient = 32760;
 s = 2179;
 h = 8299;
-bitsize = 8;
+bitsize = 15;
 
 range = [2^(bitsize-1),2^bitsize-1];
 numbers = [];

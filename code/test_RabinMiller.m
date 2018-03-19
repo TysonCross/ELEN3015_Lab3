@@ -1,21 +1,33 @@
+% ELEN3015 Lab3
+% Tyson Cross 1239448
+
 clc
 clear all
 
 % Primality test
-n = [1:2:2^16];
+n = 2^16;                               % how many random numbers to test
+range = [1,2^32-1];
 count = 0;
-% progressbar;
+progressbar;
 
-for i=1:length(n)
-    matlab_prime_check = isprime(n(i));
-    my_prime_check = RabinMiller(n(i));
+for i=1:n
+    r = randi(range);
+    matlab_prime_check = isprime(r);
+    my_prime_check = RabinMiller(r);
     if matlab_prime_check~=my_prime_check
         count = count +1;
     end
-%     progressbar(i/length(n));
+    progressbar(i/n);
 end
 
-agreement_rate = (1-(count/length(n)))*100;
+progressbar(1);
+agreement_rate = (1-(count/n))*100;
 disp(['There was ' num2str(agreement_rate),...
-    '% agreement of primality for all odd integers between ',...
-    num2str(n(1)),' and ', num2str(n(end))])
+    '% agreement of primality for the ',...
+    num2str(n), ' random integers tested in range [',...
+    num2str(range(1)),',', num2str(range(end)), ']'])
+
+%% output (when n = 2^16:)
+%
+%   There was 95.2805% agreement of primality for the 65536 random integers tested in range [1,4294967295]
+%

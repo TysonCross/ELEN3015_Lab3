@@ -1,6 +1,10 @@
 function [ primality, numBinaryDivisions, oddPartNum ] = RabinMiller( n , k )
 % RabinMiller tests an input number for primality using the Rabin-Miller test
 % returns false if the test returns composite, and true if likely prime
+
+% ELEN3015 Lab3
+% Tyson Cross 1239448
+
  
     % confidence of testing (number of bases)
     if nargin < 2

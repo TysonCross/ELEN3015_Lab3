@@ -2,8 +2,11 @@ function [ output ] = makeInt( input )
 % makeInt checks the input to see if it is an integer.
 % if not, the value is floored to the nearest int and returned
 
+% ELEN3015 Lab3
+% Tyson Cross 1239448
+
     if isnan(input)
-        error('Valuew cannot be NaN')
+        error('Value cannot be NaN')
     end
     
     if isinf(input)

@@ -1,3 +1,6 @@
+% ELEN3015 Lab3
+% Tyson Cross 1239448
+
 clc
 clear all
 

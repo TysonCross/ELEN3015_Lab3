@@ -1,6 +1,9 @@
 function [ gcd, sa, ta] = GCD( a, b )
 % GCD() returns the greatest common divisor between two numbers
 % It implements Euclid's extended algorithm
+
+% ELEN3015 Lab3
+% Tyson Cross 1239448
     
     q = 1;
     r = 1;
