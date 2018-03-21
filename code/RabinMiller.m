@@ -39,7 +39,7 @@ function [ primality, numBinaryDivisions, oddPartNum ] = RabinMiller( n , k )
         primality = false; return
     end
     
-    % split into the form (2^r)·d , with d odd
+    % split into the form (2^r)*d , with d odd
     numBinaryDivisions = 1;
     oddPartNum = (n-1)/2;
     while bitand(oddPartNum,1)==0
